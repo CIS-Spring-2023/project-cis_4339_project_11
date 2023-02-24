@@ -1,7 +1,19 @@
+import LoginComponent from "../components/loginPage.vue"
 import { createRouter, createWebHistory } from 'vue-router'
 
 // make all paths and names lowercase for consistency
 const routes = [
+  {
+    path:'/',
+    redirect: {
+      name: "login"
+    }
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginComponent
+  },
   {
     path: '/',
     props: true,
