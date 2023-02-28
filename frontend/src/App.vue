@@ -80,7 +80,7 @@ export default {
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
-                  >search</span
+                  >list</span
                 >
                 Services
               </router-link>

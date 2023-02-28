@@ -92,7 +92,7 @@ export default {
             <tr>
               <th class="p-4 text-left">Service Name</th>
               <th class="p-4 text-left">Service Status</th>
-              <th class="p-4 text-left">[Make Button]Enable/Disable</th>
+              <th class="p-4 text-left">Active Status</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
