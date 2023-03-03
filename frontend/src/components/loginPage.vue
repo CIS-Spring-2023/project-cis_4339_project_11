@@ -50,17 +50,17 @@ export default {
 <template>
     <main>
         <div class="login">
-            <form class="form-thing" @submit.prevent="loginSubmit">
-                <h1 clss="text-2xl font-bold">Login Page</h1>
-                <div class="form-input">
-                    <input class="input-group" type="text" name="username" v-model="username" placeholder="username" />
+            <h1 clss="text-2xl font-bold">Login Page</h1>
+            <form @submit.prevent="store.login(username, password)" novalidate="true"> 
+                <div class="form-group">
+                    <label>Username</label>
+                    <input class="form-control" type="text" v-model="username" placeholder="username" required>
                 </div>
-                <div class="form-input">
-                    <input class="input-group" type="password" name="password" v-model="password" placeholder="Password" />
+                <div class="form-group">
+                    <label>Password</label>
+                    <input class="input-group" type="password" v-model="password" placeholder="password" required>
                 </div>
-                <div>
-                    <button class="btn-grp" type="submit">Login</button>
-                </div>
+                <button class="btn btn-danger mt-3">Submit</button>  
             </form>
         </div>
 
