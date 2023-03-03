@@ -1,7 +1,7 @@
 <script>
 import { DateTime } from 'luxon'
 import axios from 'axios'
-import AttendanceChart from './barChart.vue'
+import AttendanceChart from './PieChart.vue'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
