@@ -4,15 +4,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 // make all paths and names lowercase for consistency
 const routes = [
   {
-    path:'/',
-    redirect: {
-      name: "login"
-    }
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: LoginComponent
+    path: '/login',
+    name: 'login',  
+    props: true,
+    component: () => import('../components/loginPage.vue')
   },
   {
     path: '/',
@@ -23,34 +18,40 @@ const routes = [
     path: '/intakeform',
     name: 'intakeform',
     props: true,
-    component: () => import('../components/intakeForm.vue')
+    component: () => import('../components/intakeForm.vue'),
+    meta: { requiresAuth: true, roles: ['editor']}
   },
   {
     path: '/findclient',
     name: 'findclient',
-    component: () => import('../components/findClient.vue')
+    component: () => import('../components/findClient.vue'),
+    meta: { requiresAuth: true, roles: ['editor', 'viewer']}
   },
   {
     path: '/updateclient/:id',
     name: 'updateclient',
     props: true,
-    component: () => import('../components/updateClient.vue')
+    component: () => import('../components/updateClient.vue'),
+    meta: { requiresAuth: true, roles: ['editor']}
   },
   {
     path: '/eventform',
     name: 'eventform',
-    component: () => import('../components/eventForm.vue')
+    component: () => import('../components/eventForm.vue'),
+    meta: { requiresAuth: true, roles: ['editor']}
   },
   {
     path: '/findevents',
     name: 'findevents',
-    component: () => import('../components/findEvents.vue')
+    component: () => import('../components/findEvents.vue'),
+    meta: { requiresAuth: true, roles: ['editor', 'viewer']}
   },
   {
     path: '/eventdetails/:id',
     name: 'eventdetails',
     props: true,
-    component: () => import('../components/eventDetails.vue')
+    component: () => import('../components/eventDetails.vue'),
+    meta: { requiresAuth: true, roles: ['editor']}
   }
 ]
 const router = createRouter({
