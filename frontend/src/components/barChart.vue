@@ -4,11 +4,14 @@ Chart.register(...registerables)
 
 export default {
   props: {
-    label: {
-      type: Array
-    },
     chartData: {
-      type: Array
+      type: Array,
+      default: () => [
+        //Array of data to be tested on the chart
+        { client: 'Client 1', zip: '10001' }, // format is for the client, by zip
+        { client: 'Client 2', zip: '10001' },
+        { client: 'Client 3', zip: '10002' }
+      ]
     }
   },
   async mounted() {
@@ -17,31 +20,19 @@ export default {
       e.replace(/[\d\.]+\)$/g, '1)')
     )
     await new Chart(this.$refs.attendanceChart, {
-      type: 'bar',
+      type: 'pie', // switched the type from bar to pie
       data: {
-        labels: this.label,
         datasets: [
           {
             borderWidth: 1,
             backgroundColor: backgroundColor,
             borderColor: borderColor,
-            data: this.chartData
+            data: this.chartData.map((item) => item.zip)
           }
         ]
       },
       options: {
-        scales: {
-          y: {
-            ticks: {
-              stepSize: 1
-            }
-          },
-          x: {
-            gridLines: {
-              display: false
-            }
-          }
-        },
+        // removed the x/y because pie charts to not need x and y
         plugins: {
           legend: {
             display: false
