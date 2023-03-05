@@ -16,7 +16,7 @@ export default {
     const borderColor = backgroundColor.map((e) =>
       e.replace(/[\d\.]+\)$/g, '1)')
     )
-    await new Chart(this.$refs.attendanceChart, {
+    await new Chart(this.$refs.AttendanceChart, {
       type: 'pie',
       data: {
         labels: this.label,
@@ -50,6 +50,6 @@ export default {
 </script>
 <template>
   <div class="shadow-lg rounded-lg overflow-hidden">
-    <canvas class="p-10" ref="attendanceChart"></canvas>
+    <canvas class="p-10" ref="AttendanceChart"></canvas>
   </div>
 </template>

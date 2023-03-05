@@ -12,7 +12,13 @@ export default {
     return {
       recentEvents: [],
       labels: [],
-      chartData: [],
+      chartData: [
+        // hard coded data for testing purposes
+        { zip_code: '10001', count: 20 },
+        { zip_code: '10002', count: 15 },
+        { zip_code: '10003', count: 10 },
+        { zip_code: '10004', count: 5 }
+      ],
       loading: false,
       error: null
     }
@@ -25,12 +31,10 @@ export default {
       try {
         this.error = null
         this.loading = true
-        const response = await axios.get(`${apiURL}/events/attendance`)
-        this.recentEvents = response.data
-        this.labels = response.data.map(
-          (item) => `${item.name} (${this.formattedDate(item.date)})`
-        )
-        this.chartData = response.data.map((item) => item.attendees.length)
+        // const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
+        // this.recentEvents = response.data
+        this.labels = this.chartData.map((item) => `${item.zip_code}})`) //takes the data from chart data and assigns zip code for the label
+        this.chartData = this.chartData.map((item) => item.count) // takes the data from chart data and assigns the count to the zip code
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
