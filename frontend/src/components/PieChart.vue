@@ -30,8 +30,8 @@ export default {
         ]
       },
       options: {
-        // got rid of unnecessary code with advice from chatgpt
         plugins: {
+          //removed unneccessary code with advice from chat gpt (x and y values) pie charts do not need
           legend: {
             display: false
           }
