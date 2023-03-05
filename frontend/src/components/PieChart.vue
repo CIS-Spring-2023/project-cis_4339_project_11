@@ -30,6 +30,7 @@ export default {
         ]
       },
       options: {
+        // got rid of unnecessary code with advice from chatgpt
         plugins: {
           legend: {
             display: false

@@ -13,7 +13,7 @@ export default {
       recentEvents: [],
       labels: [],
       chartData: [
-        // hard coded data for testing purposes
+        // hard coded data for testing purposes, format help from chatgpt
         { zip_code: '10001', count: 20 },
         { zip_code: '10002', count: 15 },
         { zip_code: '10003', count: 10 },
@@ -33,8 +33,8 @@ export default {
         this.loading = true
         // const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
         // this.recentEvents = response.data
-        this.labels = this.chartData.map((item) => `${item.zip_code}})`) //takes the data from chart data and assigns zip code for the label
-        this.chartData = this.chartData.map((item) => item.count) // takes the data from chart data and assigns the count to the zip code
+        this.labels = this.chartData.map((item) => `${item.zip_code}})`) //takes the data from chart data and assigns zip code for the label, done with advice from chatgpt
+        this.chartData = this.chartData.map((item) => item.count) // takes the data from chart data and assigns the count to the zip code, done with advice from chatgpt
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
