@@ -1,13 +1,17 @@
 <script>
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
-
+import { useLoggedInUserStore } from "@/store/loggedInUser";
 export default {
   name: 'App',
   data() {
     return {
       orgName: 'Dataplatform'
     }
+  },
+  setup() {
+    const user = useLoggedInUserStore();
+    return { user };
   },
   created() {
     axios.get(`${apiURL}/org`).then((res) => {
@@ -85,6 +89,31 @@ export default {
                 Find Event
               </router-link>
             </li>
+            <li class="nav-item" v-if="!user.isLoggedIn">
+            <router-link class="nav-link" to="/login">Log In</router-link>
+          </li>
+          <li class="nav-item dropdown" v-if="user.isLoggedIn">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarUserMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person-fill" style="font-size: 1rem; color: hsla(160, 100%, 37%, 1)"></i> Welcome, {{ user.name }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarUserMenuLink">
+              <li class="nav-item">
+                <p class="nav-link">User Information</p>
+              </li>
+              <li class="nav-item">
+                <a href="">
+                  <span @click="store.logout()" class="nav-link"><i class="bi bi-box-arrow-left"></i> Logout</span>
+                </a>
+              </li>
+            </ul>
+          </li>
           </ul>
         </nav>
       </header>
