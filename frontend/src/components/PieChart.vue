@@ -1,7 +1,10 @@
 <script>
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
+//removed unneccessary code with advice from chat gpt (x and y values) pie charts do not need
 
+//Found in testing that pie chart does not always show up with current setup, shows up after making slight change
+//in code, even as minor as editing a comment, and saving
 export default {
   props: {
     label: {
@@ -31,7 +34,6 @@ export default {
       },
       options: {
         plugins: {
-          //removed unneccessary code with advice from chat gpt (x and y values) pie charts do not need
           legend: {
             display: false
           }
