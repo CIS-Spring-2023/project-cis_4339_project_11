@@ -1,40 +1,26 @@
 <script>
-import { DateTime } from 'luxon'
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   data() {
     return {
-      events: [],
-      // Parameter for search to occur
-      searchBy: '',
-      name: '',
-      eventDate: ''
+      services: []
     }
   },
   mounted() {
-    this.getEvents()
+    this.getServices()
   },
   methods: {
-    // better formattedDate
-    formattedDate(datetimeDB) {
-      const dt = DateTime.fromISO(datetimeDB, {
-        zone: 'utc'
-      })
-      return dt
-        .setZone(DateTime.now().zoneName, { keepLocalTime: true })
-        .toLocaleString()
-    },
     // abstracted method to get events
-    getEvents() {
-      axios.get(`${apiURL}/events`).then((res) => {
-        this.events = res.data
+    getServices() {
+      axios.get(`${apiURL}/services`).then((res) => {
+        this.services = res.data
       })
       window.scrollTo(0, 0)
     },
-    editEvent(eventID) {
-      this.$router.push({ name: 'eventdetails', params: { id: eventID } })
+    editService(serviceID) {
+      this.$router.push({ name: 'servicedetails', params: { id: serviceID } })
     }
   }
 }
@@ -78,13 +64,13 @@ export default {
           </thead>
           <tbody class="divide-y divide-gray-300">
             <tr
-              @click="editEvent(event._id)"
-              v-for="event in events"
-              :key="event._id"
+              @click="editService(service._id)"
+              v-for="service in services"
+              :key="service._id"
             >
-              <td class="p-2 text-left">{{ event.name }}</td>
-              <td class="p-2 text-left">{{ formattedDate(event.date) }}</td>
-              <td class="p-2 text-left">{{ event.address.line1 }}</td>
+              <td class="p-2 text-left">{{ service.name }}</td>
+              <td class="p-2 text-left">{{ service.status }}</td>
+              <td class="p-2 text-left">{{ service.description }}</td>
             </tr>
           </tbody>
         </table>
