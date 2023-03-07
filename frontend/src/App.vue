@@ -29,7 +29,7 @@ export default {
         </section>
         <nav class="mt-10">
           <ul class="flex flex-col gap-4">
-            <li>
+            <!-- <li>
               <router-link to="/login">
                 <span
                   style="position: relative; top:6px"
@@ -38,7 +38,7 @@ export default {
                 >
                 login
               </router-link>
-            </li>
+            </li> -->
             <li>
               <router-link to="/">
                 <span
@@ -49,17 +49,17 @@ export default {
                 Dashboard
               </router-link>
             </li>
-            <li>
-              <router-link to="/intakeform">
+            <li v-if="user.isLoggedIn">
+              <router-link  to="/intakeform">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
                   >people</span
                 >
                 Client Intake Form
-              </router-link>
+              </router-link> 
             </li>
-            <li>
+            <li v-if="user.isLoggedIn">
               <router-link to="/eventform">
                 <span
                   style="position: relative; top: 6px"
@@ -67,7 +67,7 @@ export default {
                   >event</span
                 >
                 Create Event
-              </router-link>
+              </router-link> 
             </li>
             <li>
               <router-link to="/findclient">
@@ -90,7 +90,13 @@ export default {
               </router-link>
             </li>
             <li class="nav-item" v-if="!user.isLoggedIn">
-            <router-link class="nav-link" to="/login">Log In</router-link>
+            <router-link class="nav-link" to="/login">
+              <span
+                  style="position: relative; top:6px"
+                  class="material-icons"
+                  >login</span
+                >
+                login</router-link>
           </li>
           <li class="nav-item dropdown" v-if="user.isLoggedIn">
             <a
@@ -104,9 +110,6 @@ export default {
               <i class="bi bi-person-fill" style="font-size: 1rem; color: hsla(160, 100%, 37%, 1)"></i> Welcome, {{ user.name }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarUserMenuLink">
-              <li class="nav-item">
-                <p class="nav-link">User Information</p>
-              </li>
               <li class="nav-item">
                 <a href="">
                   <span @click="store.logout()" class="nav-link"><i class="bi bi-box-arrow-left"></i> Logout</span>
