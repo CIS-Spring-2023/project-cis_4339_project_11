@@ -45,6 +45,16 @@ const routes = [
     name: 'services',
     props: true,
     component: () => import('../components/services.vue')
+  },
+  {
+    path: '/serviceform',
+    name: 'serviceform',
+    component: () => import('../components/serviceForm.vue')
+  },
+  {
+    path: '/servicedetails/:id',
+    name: 'servicedetails',
+    component: () => import('../components/serviceDetails.vue')
   }
 ]
 const router = createRouter({

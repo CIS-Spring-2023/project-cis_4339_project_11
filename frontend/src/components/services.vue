@@ -26,31 +26,12 @@ export default {
         .setZone(DateTime.now().zoneName, { keepLocalTime: true })
         .toLocaleString()
     },
-    handleSubmitForm() {
-      let endpoint = ''
-      if (this.searchBy === 'Event Name') {
-        endpoint = `events/search/?name=${this.name}&searchBy=name`
-      } else if (this.searchBy === 'Event Date') {
-        endpoint = `events/search/?eventDate=${this.eventDate}&searchBy=date`
-      }
-      axios.get(`${apiURL}/${endpoint}`).then((res) => {
-        this.events = res.data
-      })
-    },
     // abstracted method to get events
     getEvents() {
       axios.get(`${apiURL}/events`).then((res) => {
         this.events = res.data
       })
       window.scrollTo(0, 0)
-    },
-    clearSearch() {
-      // Resets all the variables
-      this.searchBy = ''
-      this.name = ''
-      this.eventDate = ''
-
-      this.getEvents()
     },
     editEvent(eventID) {
       this.$router.push({ name: 'eventdetails', params: { id: eventID } })
@@ -92,7 +73,7 @@ export default {
             <tr>
               <th class="p-4 text-left">Service Name</th>
               <th class="p-4 text-left">Service Status</th>
-              <th class="p-4 text-left">Active Status</th>
+              <th class="p-4 text-left">Description</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
