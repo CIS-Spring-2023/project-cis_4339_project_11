@@ -10,10 +10,11 @@ export default {
   },
   data() {
     return {
+      //added some hardcoded data for testing purposes with help from chatgpt
       recentEvents: [
         {
           name: 'Event A',
-          date: '2022-02-25T17:00:00.000Z',
+          date: '2023-03-04T17:00:00.000Z',
           attendees: [
             { name: 'Alice', email: 'alice@example.com' },
             { name: 'Bob', email: 'bob@example.com' },
@@ -22,7 +23,7 @@ export default {
         },
         {
           name: 'Event B',
-          date: '2022-02-26T18:00:00.000Z',
+          date: '2023-03-12T18:00:00.000Z',
           attendees: [
             { name: 'David', email: 'david@example.com' },
             { name: 'Emily', email: 'emily@example.com' }
