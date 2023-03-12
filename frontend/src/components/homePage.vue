@@ -10,7 +10,26 @@ export default {
   },
   data() {
     return {
-      recentEvents: [],
+      recentEvents: [
+        {
+          name: 'Event A',
+          date: '2022-02-25T17:00:00.000Z',
+          attendees: [
+            { name: 'Alice', email: 'alice@example.com' },
+            { name: 'Bob', email: 'bob@example.com' },
+            { name: 'Charlie', email: 'charlie@example.com' }
+          ]
+        },
+        {
+          name: 'Event B',
+          date: '2022-02-26T18:00:00.000Z',
+          attendees: [
+            { name: 'David', email: 'david@example.com' },
+            { name: 'Emily', email: 'emily@example.com' }
+          ]
+        }
+      ],
+
       labels: [],
       chartData: [
         // hard coded data for testing purposes, format help from chatgpt
