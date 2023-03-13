@@ -20,4 +20,6 @@ cd frontend
 ```
 Follow instructions in frontend README for setup and running as a local instance.
 
-
+## npm install
+## npm install pinia
+## npm install chart.js
