@@ -9,6 +9,8 @@ export const useLoggedInUserStore = defineStore({
     return {
       name: "",
       isLoggedIn: false,
+      // isViewer: false,
+      // isEditor: false,
     }
   },
   // equivalent to methods in components, perfect to define business logic
