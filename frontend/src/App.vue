@@ -49,7 +49,7 @@ export default {
                 Dashboard
               </router-link>
             </li>
-            <li v-if="user.isLoggedIn">
+            <li v-if="user.isEditor">
               <router-link  to="/intakeform">
                 <span
                   style="position: relative; top: 6px"
@@ -59,7 +59,7 @@ export default {
                 Client Intake Form
               </router-link> 
             </li>
-            <li v-if="user.isLoggedIn">
+            <li v-if="user.isEditor">
               <router-link to="/eventform">
                 <span
                   style="position: relative; top: 6px"
@@ -69,7 +69,7 @@ export default {
                 Create Event
               </router-link> 
             </li>
-            <li>
+            <li v-if="user.isViewer">
               <router-link to="/findclient">
                 <span
                   style="position: relative; top: 6px"
@@ -79,7 +79,7 @@ export default {
                 Find Client
               </router-link>
             </li>
-            <li>
+            <li v-if="user.isViewer">
               <router-link to="/findevents">
                 <span
                   style="position: relative; top: 6px"
