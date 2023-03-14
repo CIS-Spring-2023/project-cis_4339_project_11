@@ -5,6 +5,7 @@ const apiURL = import.meta.env.VITE_ROOT_API
 export default {
   data() {
     return {
+      // Here is dummy data for the purpose of testing. This should get overwritten once a real connection to a DB is made.
       services: [
         {
           id: 0,
@@ -47,14 +48,12 @@ export default {
     editService(serviceID) {
       this.$router.push({ name: 'servicedetails', params: { id: serviceID } })
     },
+    // This removes a service based on the provided ID.
     disableService(serviceID) {
       this.services.splice(serviceID, 1)
     },
-    addService(
-      newName = 'mystery',
-      newStatus = 'Active',
-      newDescription = 'new service appeared'
-    ) {
+    // This adds a service and provides defualt values should they be missing.
+    addService(newName = 'N/A', newStatus = 'N/A', newDescription = '') {
       var newID = this.services.length + 1
       this.services.push({
         id: newID,
@@ -125,6 +124,52 @@ export default {
         </table>
       </div>
     </div>
-    <button @click="addService()">add mystery service</button>
+
+    <!-- This is the form for creating a new service and adding it to the list. -->
+    <div class="ml-10">
+      <h2 class="text-2xl font-bold">Create Service</h2>
+      <form>
+        <label for="newServiceName" class="block">New Service Name</label>
+        <input
+          type="text"
+          id="newServiceName"
+          name="newServiceName"
+          v-model="newServiceName"
+          required
+        />
+
+        <label for="newServiceStatus" class="block">New Service Status</label>
+        <input
+          type="text"
+          id="newServiceStatus"
+          name="newServiceStatus"
+          v-model="newServiceStatus"
+          required
+        />
+
+        <label for="newServiceDescription" class="block"
+          >New Service Description</label
+        >
+        <textarea
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          rows="2"
+          id="newServiceDescription"
+          name="newServiceDescription"
+          v-model="newServiceDescription"
+        ></textarea>
+
+        <button
+          type="submit"
+          value="Submit"
+          @click.prevent="submitForm"
+          @click="
+            addService(newServiceName, newServiceStatus, newServiceDescription)
+          "
+          class="bg-red-700 text-white rounded"
+        >
+          Create New Service
+        </button>
+      </form>
+    </div>
   </main>
 </template>
