@@ -89,7 +89,7 @@ export default {
                 Find Event
               </router-link>
             </li>
-            <li>
+            <li v-if="user.isViewer">
               <router-link to="/services">
                 <span
                   style="position: relative; top: 6px"
@@ -99,7 +99,7 @@ export default {
                 Services
               </router-link>
             </li>
-            <li>
+            <li v-if="user.isEditor">
               <router-link to="/servicesedit">
                 <span
                   style="position: relative; top: 6px"
