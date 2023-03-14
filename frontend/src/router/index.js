@@ -50,11 +50,6 @@ const routes = [
     path: '/servicesedit',
     name: 'servicesedit',
     component: () => import('../components/servicesEdit.vue')
-  },
-  {
-    path: '/servicedetails/:id',
-    name: 'servicedetails',
-    component: () => import('../components/serviceDetails.vue')
   }
 ]
 const router = createRouter({
