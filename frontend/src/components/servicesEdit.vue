@@ -15,7 +15,7 @@ export default {
         {
           id: 1,
           name: 'taxes',
-          status: 'Disabled',
+          status: 'Active',
           description: 'boring time'
         },
         {
@@ -29,7 +29,7 @@ export default {
           name: 'party',
           status: 'Active',
           description: 'fun time'
-        },
+        }
       ]
     }
   },
@@ -46,6 +46,22 @@ export default {
     },
     editService(serviceID) {
       this.$router.push({ name: 'servicedetails', params: { id: serviceID } })
+    },
+    disableService(serviceID) {
+      this.services.splice(serviceID, 1)
+    },
+    addService(
+      newName = 'mystery',
+      newStatus = 'Active',
+      newDescription = 'new service appeared'
+    ) {
+      var newID = this.services.length + 1
+      this.services.push({
+        id: newID,
+        name: newName,
+        status: newStatus,
+        description: newDescription
+      })
     }
   }
 }
@@ -76,7 +92,6 @@ export default {
     >
       <div class="ml-10">
         <h2 class="text-2xl font-bold">Edit Services</h2>
-        <h3 class="italic">Click table row to edit/display an entry</h3>
       </div>
       <div class="flex flex-col col-span-2">
         <table class="min-w-full shadow-md rounded">
@@ -85,21 +100,31 @@ export default {
               <th class="p-4 text-left">Service Name</th>
               <th class="p-4 text-left">Service Status</th>
               <th class="p-4 text-left">Description</th>
+              <th class="p-4 text-left">Edit</th>
+              <th class="p-4 text-left">Disable</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
-            <tr
-              @click="editService(service._id)"
-              v-for="service in services"
-              :key="service._id"
-            >
+            <tr v-for="service in services" :key="service._id">
               <td class="p-2 text-left">{{ service.name }}</td>
               <td class="p-2 text-left">{{ service.status }}</td>
               <td class="p-2 text-left">{{ service.description }}</td>
+              <td class="p-2 text-left">
+                <button class="bg-red-700 text-white rounded">Edit</button>
+              </td>
+              <td class="p-2 text-left">
+                <button
+                  @click="disableService(service.id)"
+                  class="bg-red-700 text-white rounded"
+                >
+                  Disable
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    <button @click="addService()">add mystery service</button>
   </main>
 </template>

@@ -29,7 +29,7 @@ export default {
           name: 'party',
           status: 'Active',
           description: 'fun time'
-        },
+        }
       ]
     }
   },
