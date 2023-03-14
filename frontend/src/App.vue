@@ -1,7 +1,7 @@
 <script>
 import axios from 'axios'
 const apiURL = import.meta.env.VITE_ROOT_API
-import { useLoggedInUserStore } from "@/store/loggedInUser";
+import { useLoggedInUserStore } from '@/store/loggedInUser'
 export default {
   name: 'App',
   data() {
@@ -10,8 +10,8 @@ export default {
     }
   },
   setup() {
-    const user = useLoggedInUserStore();
-    return { user };
+    const user = useLoggedInUserStore()
+    return { user }
   },
   created() {
     axios.get(`${apiURL}/org`).then((res) => {
@@ -50,14 +50,14 @@ export default {
               </router-link>
             </li>
             <li v-if="user.isEditor">
-              <router-link  to="/intakeform">
+              <router-link to="/intakeform">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
                   >people</span
                 >
                 Client Intake Form
-              </router-link> 
+              </router-link>
             </li>
             <li v-if="user.isEditor">
               <router-link to="/eventform">
@@ -67,7 +67,7 @@ export default {
                   >event</span
                 >
                 Create Event
-              </router-link> 
+              </router-link>
             </li>
             <li v-if="user.isViewer">
               <router-link to="/findclient">
@@ -89,34 +89,61 @@ export default {
                 Find Event
               </router-link>
             </li>
+            <li>
+              <router-link to="/services">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >list</span
+                >
+                Services
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/servicesedit">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >list</span
+                >
+                Edit Services
+              </router-link>
+            </li>
             <li class="nav-item" v-if="!user.isLoggedIn">
-            <router-link class="nav-link" to="/login">
-              <span
-                  style="position: relative; top:6px"
+              <router-link class="nav-link" to="/login">
+                <span
+                  style="position: relative; top: 6px"
                   class="material-icons"
                   >login</span
                 >
-                login</router-link>
-          </li>
-          <li class="nav-item dropdown" v-if="user.isLoggedIn">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarUserMenuLink"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="bi bi-person-fill" style="font-size: 1rem; color: hsla(160, 100%, 37%, 1)"></i> Welcome, {{ user.name }}
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarUserMenuLink">
-              <li class="nav-item">
-                <a href="">
-                  <span @click="store.logout()" class="nav-link"><i class="bi bi-box-arrow-left"></i> Logout</span>
-                </a>
-              </li>
-            </ul>
-          </li>
+                login</router-link
+              >
+            </li>
+            <li class="nav-item dropdown" v-if="user.isLoggedIn">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarUserMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i
+                  class="bi bi-person-fill"
+                  style="font-size: 1rem; color: hsla(160, 100%, 37%, 1)"
+                ></i>
+                Welcome, {{ user.name }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarUserMenuLink">
+                <li class="nav-item">
+                  <a href="">
+                    <span @click="store.logout()" class="nav-link"
+                      ><i class="bi bi-box-arrow-left"></i> Logout</span
+                    >
+                  </a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </header>
