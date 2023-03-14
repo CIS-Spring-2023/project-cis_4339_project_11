@@ -47,9 +47,9 @@ const routes = [
     component: () => import('../components/services.vue')
   },
   {
-    path: '/serviceform',
-    name: 'serviceform',
-    component: () => import('../components/serviceForm.vue')
+    path: '/servicesedit',
+    name: 'servicesedit',
+    component: () => import('../components/servicesEdit.vue')
   },
   {
     path: '/servicedetails/:id',

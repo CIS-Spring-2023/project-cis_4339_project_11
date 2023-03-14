@@ -57,7 +57,7 @@ export default {
       <h1
         class="font-bold text-4xl text-red-700 tracking-widest text-center mt-10"
       >
-        List of Services
+        Edit Services
       </h1>
     </div>
     <div class="px-10 pt-20">
@@ -75,7 +75,7 @@ export default {
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10"
     >
       <div class="ml-10">
-        <h2 class="text-2xl font-bold">List of Services</h2>
+        <h2 class="text-2xl font-bold">Edit Services</h2>
         <h3 class="italic">Click table row to edit/display an entry</h3>
       </div>
       <div class="flex flex-col col-span-2">

@@ -86,13 +86,13 @@ export default {
               </router-link>
             </li>
             <li>
-              <router-link to="/serviceform">
+              <router-link to="/servicesedit">
                 <span
                   style="position: relative; top: 6px"
                   class="material-icons"
                   >list</span
                 >
-                Create Service
+                Edit Services
               </router-link>
             </li>
           </ul>
