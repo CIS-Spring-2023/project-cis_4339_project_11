@@ -36,7 +36,7 @@
             <OtherChart
               v-if="!loading && !error"
               :label="recentEvents"
-              :chart-data="recentEvents"
+              :chart-data="chartData"
             ></OtherChart>
 
             <!-- Start of loading animation -->
@@ -132,10 +132,18 @@ export default {
       labels: [],
       chartData: [
         // hard coded data for testing purposes, format help from chatgpt
-        { zip_code: '10001', count: 20 },
-        { zip_code: '10002', count: 15 },
-        { zip_code: '10003', count: 10 },
-        { zip_code: '10004', count: 5 }
+        {
+          zip_code: '10001',
+          count: 20,
+          date: '2023-03-04T17:00:00.000Z',
+          attendees: '3'
+        },
+        {
+          zip_code: '10002',
+          count: 15,
+          date: '2023-03-12T18:00:00.000Z',
+          attendees: '3'
+        }
       ],
       loading: false,
       error: null
@@ -154,6 +162,39 @@ export default {
         // this.recentEvents = response.data
         this.labels = this.chartData.map((item) => `${item.zip_code}`) //takes the data from chart data and assigns zip code for the label, done with advice from chatgpt
         this.chartData = this.chartData.map((item) => item.count) // takes the data from chart data and assigns the count to the zip code, done with advice from chatgpt
+      } catch (err) {
+        if (err.response) {
+          // client received an error response (5xx, 4xx)
+          this.error = {
+            title: 'Server Response',
+            message: err.message
+          }
+        } else if (err.request) {
+          // client never received a response, or request never left
+          this.error = {
+            title: 'Unable to Reach Server',
+            message: err.message
+          }
+        } else {
+          // There's probably an error in your code
+          this.error = {
+            title: 'Application Error',
+            message: err.message
+          }
+        }
+      }
+      this.loading = false
+    },
+    async getOtherData() {
+      try {
+        this.error = null
+        this.loading = true
+        // const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
+        // this.recentEvents = response.data
+        this.labels = this.chartData.map(
+          (item) => `${item.date} (${this.formattedDate(item.date)})`
+        )
+        this.chartData = this.chartData.map((item) => item.attendees.count)
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
