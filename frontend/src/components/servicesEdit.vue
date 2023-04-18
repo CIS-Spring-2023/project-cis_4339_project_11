@@ -149,11 +149,21 @@ export default {
           required
         />
 
-        <label for="newServiceStatus" class="block">New Service Status</label>
+        <label for="newServiceStatus" class="block">Active</label>
         <input
-          type="text"
+          type="radio"
           id="newServiceStatus"
           name="newServiceStatus"
+          value="Active"
+          v-model="newServiceStatus"
+          required
+        />
+        <label for="newServiceStatus" class="block">Disabled</label>
+        <input
+          type="radio"
+          id="newServiceStatus"
+          name="newServiceStatus"
+          value="Disabled"
           v-model="newServiceStatus"
           required
         />
