@@ -36,7 +36,7 @@
             <OtherChart
               v-if="!loading && !error"
               :label="recentEvents"
-              :chart-data="chartData"
+              :chart-data="recentEvents"
             ></OtherChart>
 
             <!-- Start of loading animation -->
@@ -151,7 +151,7 @@ export default {
   },
   mounted() {
     this.getAttendanceData()
-    this.getOtherData
+    this.getOtherData()
   },
   methods: {
     async getAttendanceData() {
@@ -194,7 +194,7 @@ export default {
         this.labels = this.chartData.map(
           (item) => `${item.date} (${this.formattedDate(item.date)})`
         )
-        this.chartData = this.chartData.map((item) => item.attendees.count)
+        this.chartData = this.recentEvents.map((item) => item.attendees.length)
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
