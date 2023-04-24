@@ -3,11 +3,31 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 // collection for users
-const UserSchema = new Schema({
-  username: { type: String, required: true, unique: true},
-  password: { type: String, required: true },
-  role: { type: String, enum: ["viewer", "editor"], required: true },
-});
+const UserSchema = new Schema(
+  {
+      _id: { type: String, default: uuid.v1 },
+      username: {
+        type: String,
+        required: true
+      },
+      password: {
+        type: String,
+        required: true
+      },
+      role: {
+        type: String,
+        required: false
+      },
+      orgs: {
+        type: [{ type: String, ref: 'org' }],
+        required: true,
+        validate: [(org) => org.length > 0, 'need at least one org']
+      }
+  },
+  {
+    collection: 'users',
+  }  
+)
 
 // collection for org
 const orgDataSchema = new Schema(
