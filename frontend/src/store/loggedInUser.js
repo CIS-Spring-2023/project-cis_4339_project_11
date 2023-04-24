@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-
+import axios from "axios"
 //defining a store
 export const useLoggedInUserStore = defineStore({
   // id is only required for devtools with the Pinia store
@@ -7,45 +7,54 @@ export const useLoggedInUserStore = defineStore({
   //central part of the store
   state: () => {
     return {
-      name: "",
+      name: '',
+      role: '',
       isLoggedIn: false,
-      isViewer: false,
-      isEditor: false
     }
   },
   // equivalent to methods in components, perfect to define business logic
   actions: {
     async login(username, password) {
       try {
-        const response = await apiLogin(username, password);
-        this.$patch({
-          isLoggedIn: response.isAllowed,
-          name: response.name,
-          role: response.role,
-          isViewer: response.isViewer,
-          isEditor: response.isEditor,
-        })
-        this.$router.push("/");
+        const response = await axios.post("http://localhost:3000/users", {username: username, password: password});
+
+        if(response) {
+          this.$patch({
+            isLoggedIn: true,
+            username: response.data.username,
+            role: response.data.role
+          })
+          this.$router.push({ name: 'Home'})
+        }
+
       } catch(error) {
-        console.log(error)
+        alert(error)
       }
     },
     logout() {
-      this.patch({
-        name: "",
-        isLoggedIn: false
-      });
+      if(window.confirm('Do you want to log out?')) {
+          this.$patch({
+            username:'',
+            role:'',
+            isLoggedIn: false
+          });
+        // name: "",
+        // isLoggedIn: false
+      };
 
       // we could do other stuff like redirecting the user
     }
+  },
+  persist: {
+    storage: sessionStorage
   }
 });
 
 //simulate a login - we will later use our backend to handle authentication
-function apiLogin(u, p) {
-  if (u === "view" && p === "view") return Promise.resolve({ isAllowed: true, name: "user", isViewer: true });
-  if (u === "edit" && p === "edit") return Promise.resolve({ isAllowed: true, name: "user", isEditor: true, isViewer: true });
-  if (p === "admin") return Promise.resolve({ isAllowed: false });
-  return Promise.reject(new Error("invalid credentials"));
-}
+// function apiLogin(u, p) {
+//   if (u === "view" && p === "view") return Promise.resolve({ isAllowed: true, name: "user", isViewer: true });
+//   if (u === "edit" && p === "edit") return Promise.resolve({ isAllowed: true, name: "user", isEditor: true, isViewer: true });
+//   if (p === "admin") return Promise.resolve({ isAllowed: false });
+//   return Promise.reject(new Error("invalid credentials"));
+// }
 
