@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
+// import { getCurrentInstance } from "vue";
+import { useRouter } from "vue-router"
 //defining a store
 export const useLoggedInUserStore = defineStore({
   // id is only required for devtools with the Pinia store
@@ -10,33 +12,56 @@ export const useLoggedInUserStore = defineStore({
       name: '',
       role: '',
       isLoggedIn: false,
-    }
+      isEditor: false,
+      isViewer: false,
+    };
+  },
+  setup() {
+    const store = useLoggedInUserStore();
+    const router = useRouter(); // Add this line
+    return {
+      // you can return the whole store instance to use it in the template
+      v$: useVuelidate({ $autoDirty: true }),
+      store,
+      router, // Add this line
+    };
   },
   // equivalent to methods in components, perfect to define business logic
   actions: {
     async login(username, password) {
       try {
-        const response = await axios.post("http://localhost:3000/users", {username: username, password: password});
+        const response = await axios.post(`http://localhost:3000/users`, { username: username, password: password });
 
         if(response) {
+          const isEditor = response.data.role === 'editor';
+          const isViewer = response.data.role === 'viewer' || isEditor;
+
           this.$patch({
             isLoggedIn: true,
             username: response.data.username,
-            role: response.data.role
-          })
-          this.$router.push({ name: 'Home'})
+            role: response.data.role,
+            isEditor: isEditor,
+            isViewer: isViewer,
+          });
+          
+          this.$router.push({ name: 'Home' });
+          return true;
         }
 
       } catch(error) {
         alert(error)
       }
+      
     },
     logout() {
       if(window.confirm('Do you want to log out?')) {
           this.$patch({
-            username:'',
+            name:'',
             role:'',
-            isLoggedIn: false
+            isLoggedIn: false,
+            isEditor: false,
+            isViewer: false,
+
           });
         // name: "",
         // isLoggedIn: false
