@@ -1,16 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import Login from '@/views/Login.vue';
+import Home from '@/components/homePage.vue';
 // make all paths and names lowercase for consistency
 const routes = [
   {
     path: '/login',
-    name: 'login',
-    component: () => import('../views/Login.vue')
+    name: 'Login',
+    component: Login
   },
   {
     path: '/',
-    props: true,
-    component: () => import('../components/homePage.vue')
+    name: 'Home',
+    component: Home
   },
   {
     path: '/intakeform',
@@ -58,7 +59,7 @@ const routes = [
   }
 ]
 const router = createRouter({
-  history: createWebHistory(),
-  routes
+  history: createWebHistory(import.meta.env.VITE_ROOT_API),
+  routes,
 })
 export default router
