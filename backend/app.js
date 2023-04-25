@@ -37,11 +37,7 @@ app.use(morgan('dev'))
 app.use('/clients', require('./routes/clients'))
 app.use('/events', require('./routes/events'))
 app.use('/org', require('./routes/org'))
-app.use('/user', require('./routes/users'))
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`)
-})
+app.use('/users', require('./routes/users'))
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -51,4 +47,9 @@ app.use(function (err, req, res, next) {
     err.statusCode = 500
   }
   res.status(err.statusCode).send(err.message)
-})
+});
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`)
+});
+
