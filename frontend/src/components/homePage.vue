@@ -131,7 +131,7 @@ export default {
         const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
         this.attdata = response.data
         this.labels = this.attdata.map((item) => `${item.address.zip}`) //takes the data from chart data and assigns zip code for the label, done with advice from chatgpt
-        this.chartData = this.attdata.map((item) => item.name.length) // takes the data from chart data and assigns the count to the zip code, done with advice from chatgpt
+        this.chartData = this.attdata.map((item) => item.attendees.length) // takes the data from chart data and assigns the count to the zip code, done with advice from chatgpt
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
