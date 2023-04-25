@@ -35,8 +35,8 @@
           <div>
             <OtherChart
               v-if="!loading && !error"
-              :label="recentEvents"
-              :chart-data="recentEvents"
+              :label="blabel"
+              :chart-data="bdata"
             ></OtherChart>
 
             <!-- Start of loading animation -->
@@ -108,43 +108,13 @@ export default {
   },
   data() {
     return {
-      //added some hardcoded data for testing purposes with help from chatgpt
-      recentEvents: [
-        {
-          name: 'Event A',
-          date: '2023-03-04T17:00:00.000Z',
-          attendees: [
-            { name: 'Alice', email: 'alice@example.com' },
-            { name: 'Bob', email: 'bob@example.com' },
-            { name: 'Charlie', email: 'charlie@example.com' }
-          ]
-        },
-        {
-          name: 'Event B',
-          date: '2023-03-12T18:00:00.000Z',
-          attendees: [
-            { name: 'David', email: 'david@example.com' },
-            { name: 'Emily', email: 'emily@example.com' }
-          ]
-        }
-      ],
-
+      //removed hardcoded data for db backend testing
+      recentEvents: [],
+      attdata: [],
       labels: [],
-      chartData: [
-        // hard coded data for testing purposes, format help from chatgpt
-        {
-          zip_code: '10001',
-          count: 20,
-          date: '2023-03-04T17:00:00.000Z',
-          attendees: '3'
-        },
-        {
-          zip_code: '10002',
-          count: 15,
-          date: '2023-03-12T18:00:00.000Z',
-          attendees: '3'
-        }
-      ],
+      chartData: [],
+      bdata: [],
+      blabel: [],
       loading: false,
       error: null
     }
@@ -158,10 +128,10 @@ export default {
       try {
         this.error = null
         this.loading = true
-        // const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
-        // this.recentEvents = response.data
-        this.labels = this.chartData.map((item) => `${item.zip_code}`) //takes the data from chart data and assigns zip code for the label, done with advice from chatgpt
-        this.chartData = this.chartData.map((item) => item.count) // takes the data from chart data and assigns the count to the zip code, done with advice from chatgpt
+        const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
+        this.attdata = response.data
+        this.labels = this.attdata.map((item) => `${item.address.zip}`) //takes the data from chart data and assigns zip code for the label, done with advice from chatgpt
+        this.chartData = this.attdata.map((item) => item.name.length) // takes the data from chart data and assigns the count to the zip code, done with advice from chatgpt
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
@@ -189,12 +159,12 @@ export default {
       try {
         this.error = null
         this.loading = true
-        // const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
-        // this.recentEvents = response.data
-        this.labels = this.chartData.map(
+        const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
+        this.recentEvents = response.data
+        this.blabel = this.recentEvents.map(
           (item) => `${item.date} (${this.formattedDate(item.date)})`
         )
-        this.chartData = this.recentEvents.map((item) => item.attendees.length)
+        this.bdata = this.recentEvents.map((item) => item.attendees.length)
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)

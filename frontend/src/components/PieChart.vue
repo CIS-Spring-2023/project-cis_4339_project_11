@@ -55,7 +55,8 @@ export default {
         options: {
           plugins: {
             legend: {
-              display: false
+              display: true,
+              position: 'bottom'
             }
           },
           responsive: true,
