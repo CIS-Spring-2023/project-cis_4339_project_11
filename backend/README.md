@@ -17,6 +17,12 @@ Setup a .env file with the following variables: MONGO_URL, PORT and ORG
     PORT= e.g.3000
     ORG= that is the orgid (as a string)
 
+The .env file for Team 11 should look like this:
+
+    MONGO_URL="mongodb+srv://cis4339Team11:JOjpaGc3taauPgs3@cis-4339.o7fv87y.mongodb.net/?retryWrites=true&w=majority"
+    PORT=3000
+    ORG="6445fe7b67655359d93a6333"
+
 ### Compiles and hot-reloads for development
 
     npm start
