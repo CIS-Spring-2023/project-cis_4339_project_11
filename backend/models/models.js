@@ -160,7 +160,7 @@ const eventDataSchema = new Schema(
 const clients = mongoose.model('client', clientDataSchema)
 const orgs = mongoose.model('org', orgDataSchema)
 const events = mongoose.model('event', eventDataSchema)
-const user = mongoose.model('user', UserSchema)
+const users = mongoose.model('user', UserSchema)
 
 // package the models in an object to export
-module.exports = { clients, orgs, events, user }
+module.exports = { clients, orgs, events, users }
