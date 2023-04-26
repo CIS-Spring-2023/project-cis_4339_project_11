@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
   })
 })
 
-// POST new event
+// POST new service
 router.post('/', (req, res, next) => {
   const newService = req.body
   newService.org = org
@@ -30,26 +30,13 @@ router.post('/', (req, res, next) => {
   })
 })
 
-// PUT update event
+// PUT update service
 router.put('/update/:id', (req, res, next) => {
   services.findByIdAndUpdate(req.params.id, req.body, (error, data) => {
     if (error) {
       return next(error)
     } else {
       res.json(data)
-    }
-  })
-})
-
-// hard DELETE event by ID, as per project specifications
-router.delete('/:id', (req, res, next) => {
-  services.findByIdAndDelete(req.params.id, (error, data) => {
-    if (error) {
-      return next(error)
-    } else if (!data) {
-      res.status(400).send('Event not found')
-    } else {
-      res.send('Event deleted')
     }
   })
 })
