@@ -8,7 +8,7 @@ const { users } = require("../models/models");
 
 // Login API endpoint
 router.post(
-    "/verify-credentials",
+    "/",
     async (req, res, next) => {
       const {username, password} = req.body
 
@@ -40,15 +40,17 @@ router.post('/register', async (req, res) => {
       orgs: org
   }
 
-  if(req.body.password != null || req.body.password != "") {
-      userData.password = await bcrypt.hash(req.body.password, 10)
+  const password = req.body.password;
+  if (password !== null && password !== "") {
+    userData.password = await bcrypt.hash(password, 10);
   }
   
   try{
-    const user = users.create(userData);
+    const user = await users.create(userData);
     res.status(200).json({ message: 'user created successfully', user});
   } catch(err) {
-    res.status(500).json({ error: err.message});
+    console.error(err);
+    res.status(500).json({ error: 'could not create user.' });
   }
   
 });
