@@ -9,27 +9,9 @@ export default {
       services: [
         {
           id: 0,
-          name: 'party',
+          name: 'default',
           status: 'Active',
-          description: 'fun time'
-        },
-        {
-          id: 1,
-          name: 'taxes',
-          status: 'Active',
-          description: 'boring time'
-        },
-        {
-          id: 2,
-          name: 'clean',
-          status: 'Active',
-          description: 'clean time'
-        },
-        {
-          id: 3,
-          name: 'party',
-          status: 'Active',
-          description: 'fun time'
+          description: 'If you see this, the API connection was unsuccesful'
         }
       ]
     }
