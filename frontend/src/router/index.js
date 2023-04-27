@@ -55,6 +55,11 @@ const routes = [
     path: '/servicesedit',
     name: 'servicesedit',
     component: () => import('../components/servicesEdit.vue')
+  },
+  {
+    path: '/servicesCreate',
+    name: 'servicesCreate',
+    component: () => import('../components/servicesCreate.vue')
   }
 ]
 const router = createRouter({
