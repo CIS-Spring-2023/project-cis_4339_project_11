@@ -20,7 +20,12 @@ export default {
     .then((res) => {
       // If the API call was successful, log the response data to the console and update the component state with the organization name.
       console.log(res);
-      this.orgName = res.data.name;
+      if (res.data) {
+        this.orgName = res.data.name;
+      } else {
+        this.errorMessage = 'No organization data was found. Please try again later.'
+      }
+      
     })
     .catch((error) => {
       // If there was an error with the API call, log the error and show a user-friendly message to the user.
