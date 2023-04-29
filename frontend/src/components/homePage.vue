@@ -33,6 +33,34 @@
             </tbody>
           </table>
           <div>
+            <OtherChart
+              v-if="!loading && !error"
+              :label="blabel"
+              :chart-data="bdata"
+            ></OtherChart>
+
+            <!-- Start of loading animation -->
+            <div class="mt-40" v-if="loading">
+              <p
+                class="text-6xl font-bold text-center text-gray-500 animate-pulse"
+              >
+                Loading...
+              </p>
+            </div>
+            <!-- End of loading animation -->
+
+            <!-- Start of error alert -->
+            <div class="mt-12 bg-red-50" v-if="error">
+              <h3 class="px-4 py-1 text-4xl font-bold text-white bg-red-800">
+                {{ error.title }}
+              </h3>
+              <p class="p-4 text-lg font-bold text-red-900">
+                {{ error.message }}
+              </p>
+            </div>
+            <!-- End of error alert -->
+          </div>
+          <div>
             <AttendanceChart
               v-if="!loading && !error"
               :label="labels"
@@ -70,59 +98,73 @@
 import { DateTime } from 'luxon'
 import axios from 'axios'
 import AttendanceChart from './PieChart.vue'
+import OtherChart from './BarChart.vue'
 const apiURL = import.meta.env.VITE_ROOT_API
 
 export default {
   components: {
-    AttendanceChart
+    AttendanceChart,
+    OtherChart
   },
   data() {
     return {
-      //added some hardcoded data for testing purposes with help from chatgpt
-      recentEvents: [
-        {
-          name: 'Event A',
-          date: '2023-03-04T17:00:00.000Z',
-          attendees: [
-            { name: 'Alice', email: 'alice@example.com' },
-            { name: 'Bob', email: 'bob@example.com' },
-            { name: 'Charlie', email: 'charlie@example.com' }
-          ]
-        },
-        {
-          name: 'Event B',
-          date: '2023-03-12T18:00:00.000Z',
-          attendees: [
-            { name: 'David', email: 'david@example.com' },
-            { name: 'Emily', email: 'emily@example.com' }
-          ]
-        }
-      ],
-
+      //removed hardcoded data for db backend testing
+      recentEvents: [],
+      attdata: [],
       labels: [],
-      chartData: [
-        // hard coded data for testing purposes, format help from chatgpt
-        { zip_code: '10001', count: 20 },
-        { zip_code: '10002', count: 15 },
-        { zip_code: '10003', count: 10 },
-        { zip_code: '10004', count: 5 }
-      ],
+      chartData: [],
+      bdata: [],
+      blabel: [],
       loading: false,
       error: null
     }
   },
   mounted() {
     this.getAttendanceData()
+    this.getOtherData()
   },
   methods: {
     async getAttendanceData() {
       try {
         this.error = null
         this.loading = true
-        // const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
-        // this.recentEvents = response.data
-        this.labels = this.chartData.map((item) => `${item.zip_code}`) //takes the data from chart data and assigns zip code for the label, done with advice from chatgpt
-        this.chartData = this.chartData.map((item) => item.count) // takes the data from chart data and assigns the count to the zip code, done with advice from chatgpt
+        const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
+        this.attdata = response.data
+        this.labels = this.attdata.map((item) => `${item.address.zip}`) //takes the data from chart data and assigns zip code for the label, done with advice from chatgpt
+        this.chartData = this.attdata.map((item) => item.attendees.length) // takes the data from chart data and assigns the count to the zip code, done with advice from chatgpt
+      } catch (err) {
+        if (err.response) {
+          // client received an error response (5xx, 4xx)
+          this.error = {
+            title: 'Server Response',
+            message: err.message
+          }
+        } else if (err.request) {
+          // client never received a response, or request never left
+          this.error = {
+            title: 'Unable to Reach Server',
+            message: err.message
+          }
+        } else {
+          // There's probably an error in your code
+          this.error = {
+            title: 'Application Error',
+            message: err.message
+          }
+        }
+      }
+      this.loading = false
+    },
+    async getOtherData() {
+      try {
+        this.error = null
+        this.loading = true
+        const response = await axios.get(`${apiURL}/events/attendance`) // commented out axios for testing purposes
+        this.recentEvents = response.data
+        this.blabel = this.recentEvents.map(
+          (item) => `${item.date} (${this.formattedDate(item.date)})`
+        )
+        this.bdata = this.recentEvents.map((item) => item.attendees.length)
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)

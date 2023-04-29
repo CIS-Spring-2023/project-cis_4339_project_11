@@ -1,7 +1,5 @@
 <script>
-//removed unneccessary code with advice from chat gpt (x and y values) pie charts do not need
-// done with Chatgpt help
-
+//Done using the code I used for the PieChart in addition to chatGPT advice
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 
@@ -18,9 +16,9 @@ export default {
     await this.renderChart()
   },
   watch: {
-    // watches for any changes to the chart and updates it constantly so that it appears, coded with help from chatgpt
+    // Watch for changes to chartData and re-render the chart
     chartData() {
-      this.renderChart() //method the re render, coded with help from chatgpt
+      this.renderChart()
     }
   },
   methods: {
@@ -38,9 +36,9 @@ export default {
       const borderColor = backgroundColor.map((e) =>
         e.replace(/[\d\.]+\)$/g, '1)')
       )
-      this.chart = new Chart(this.$refs.AttendanceChart, {
+      this.chart = new Chart(this.$refs.OtherChart, {
         // new chart that replaces old one
-        type: 'pie',
+        type: 'bar',
         data: {
           labels: this.label,
           datasets: [
@@ -53,10 +51,21 @@ export default {
           ]
         },
         options: {
+          scales: {
+            y: {
+              ticks: {
+                stepSize: 1
+              }
+            },
+            x: {
+              gridLines: {
+                display: false
+              }
+            }
+          },
           plugins: {
             legend: {
-              display: true,
-              position: 'bottom'
+              display: false
             }
           },
           responsive: true,
@@ -70,6 +79,6 @@ export default {
 
 <template>
   <div class="shadow-lg rounded-lg overflow-hidden">
-    <canvas class="p-10" ref="AttendanceChart"></canvas>
+    <canvas class="p-10" ref="OtherChart"></canvas>
   </div>
 </template>
