@@ -17,6 +17,17 @@ router.get('/', (req, res, next) => {
   })
 })
 
+// GET services for org with id
+router.get('/:id', (req, res, next) => {
+  services.findById(req.params.id, req.body, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      return res.json(data)
+    }
+  })
+})
+
 // POST new service
 router.post('/', (req, res, next) => {
   const newService = req.body
@@ -31,7 +42,7 @@ router.post('/', (req, res, next) => {
 })
 
 // PUT update service
-router.put('/update/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   services.findByIdAndUpdate(req.params.id, req.body, (error, data) => {
     if (error) {
       return next(error)

@@ -109,6 +109,16 @@ export default {
                 Edit Services
               </router-link>
             </li>
+            <li v-if="user.isEditor">
+              <router-link to="/servicesCreate">
+                <span
+                  style="position: relative; top: 6px"
+                  class="material-icons"
+                  >list</span
+                >
+                Create Services
+              </router-link>
+            </li>
             <li class="nav-item" v-if="!user.isLoggedIn">
               <router-link class="nav-link" to="/login">
                 <span

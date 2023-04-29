@@ -5,47 +5,23 @@ const apiURL = import.meta.env.VITE_ROOT_API
 export default {
   data() {
     return {
-      services: [
-        {
-          id: 0,
-          name: 'party',
-          status: 'Active',
-          description: 'fun time'
-        },
-        {
-          id: 1,
-          name: 'taxes',
-          status: 'Disabled',
-          description: 'boring time'
-        },
-        {
-          id: 2,
-          name: 'clean',
-          status: 'Active',
-          description: 'clean time'
-        },
-        {
-          id: 3,
-          name: 'party',
-          status: 'Active',
-          description: 'fun time'
-        }
-      ]
+      services: {
+        name: 'Default',
+        status: 'Active',
+        description: 'If you see this, the API connection was unsuccesful'
+      }
     }
   },
   mounted() {
     this.getServices()
   },
   methods: {
-    // abstracted method to get events
+    // abstracted method to get services
     getServices() {
       axios.get(`${apiURL}/services`).then((res) => {
         this.services = res.data
       })
       window.scrollTo(0, 0)
-    },
-    editService(serviceID) {
-      this.$router.push({ name: 'servicedetails', params: { id: serviceID } })
     }
   }
 }
@@ -76,7 +52,6 @@ export default {
     >
       <div class="ml-10">
         <h2 class="text-2xl font-bold">List of Services</h2>
-        <h3 class="italic">Click table row to edit/display an entry</h3>
       </div>
       <div class="flex flex-col col-span-2">
         <table class="min-w-full shadow-md rounded">
@@ -88,14 +63,14 @@ export default {
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
-            <tr
-              @click="editService(service._id)"
-              v-for="service in services"
-              :key="service._id"
-            >
-              <td class="p-2 text-left">{{ service.name }}</td>
-              <td class="p-2 text-left">{{ service.status }}</td>
-              <td class="p-2 text-left">{{ service.description }}</td>
+            <tr v-for="service in services" :key="service._id">
+              <td v-if="service.status" class="p-2 text-left">
+                {{ service.name }}
+              </td>
+              <td v-if="service.status" class="p-2 text-left">Active</td>
+              <td v-if="service.status" class="p-2 text-left">
+                {{ service.description }}
+              </td>
             </tr>
           </tbody>
         </table>

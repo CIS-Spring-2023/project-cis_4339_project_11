@@ -55,6 +55,17 @@ const routes = [
     path: '/servicesedit',
     name: 'servicesedit',
     component: () => import('../components/servicesEdit.vue')
+  },
+  {
+    path: '/servicesCreate',
+    name: 'servicesCreate',
+    component: () => import('../components/servicesCreate.vue')
+  },
+  {
+    path: '/servicedetails/:id',
+    name: 'servicedetails',
+    props: true,
+    component: () => import('../components/serviceDetails.vue')
   }
 ]
 const router = createRouter({
