@@ -29,35 +29,6 @@ export default {
     },
     editService(serviceID) {
       this.$router.push({ name: 'servicedetails', params: { id: serviceID } })
-    },
-    // This removes a service based on the provided ID.
-    disableService(serviceID) {
-      this.services.splice(serviceID, 1)
-    },
-    // This adds a service and provides defualt values should they be missing.
-    addService(newName = 'N/A', newStatus = 'N/A', newDescription = '') {
-      var newID = this.services.length + 1
-      this.services.push({
-        id: newID,
-        name: newName,
-        status: newStatus,
-        description: newDescription
-      })
-    },
-    // This updates a service with new information.
-    updateService(
-      updateID,
-      newName = 'N/A',
-      newStatus = 'N/A',
-      newDescription = ''
-    ) {
-      this.services.forEach(function (service) {
-        if (service.id == updateID) {
-          service.name = newName
-          service.status = newStatus
-          service.description = newDescription
-        }
-      })
     }
   }
 }
@@ -97,7 +68,6 @@ export default {
               <th class="p-4 text-left">Service Name</th>
               <th class="p-4 text-left">Service Status</th>
               <th class="p-4 text-left">Description</th>
-              <th class="p-4 text-left">Disable</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-300">
@@ -109,78 +79,10 @@ export default {
               <td class="p-2 text-left">{{ service.name }}</td>
               <td class="p-2 text-left">{{ service.status }}</td>
               <td class="p-2 text-left">{{ service.description }}</td>
-              <td class="p-2 text-left">
-                <button
-                  @click="disableService(service.id)"
-                  class="bg-red-700 text-white rounded"
-                >
-                  Disable
-                </button>
-              </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
-
-    <!-- This is the form for updating an existing service. -->
-    <div class="ml-10">
-      <h2 class="text-2xl font-bold">Update Service</h2>
-      <form>
-        <label for="updateID" class="block">Service ID to Update</label>
-        <input
-          type="text"
-          id="updateID"
-          name="updateID"
-          v-model="updateID"
-          required
-        />
-        <label for="newServiceName" class="block">New Service Name</label>
-        <input
-          type="text"
-          id="newServiceName"
-          name="newServiceName"
-          v-model="newServiceName"
-          required
-        />
-
-        <label for="newServiceStatus" class="block">New Service Status</label>
-        <input
-          type="text"
-          id="newServiceStatus"
-          name="newServiceStatus"
-          v-model="newServiceStatus"
-          required
-        />
-
-        <label for="newServiceDescription" class="block"
-          >New Service Description</label
-        >
-        <textarea
-          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          rows="2"
-          id="newServiceDescription"
-          name="newServiceDescription"
-          v-model="newServiceDescription"
-        ></textarea>
-
-        <button
-          type="submit"
-          value="Submit"
-          @click.prevent="submitForm"
-          @click="
-            updateService(
-              updateID,
-              newServiceName,
-              newServiceStatus,
-              newServiceDescription
-            )
-          "
-          class="bg-red-700 text-white rounded"
-        >
-          Update Service
-        </button>
-      </form>
     </div>
   </main>
 </template>
