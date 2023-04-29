@@ -29,12 +29,6 @@ export default {
         alert('Update has been saved.')
         this.$router.back()
       })
-    },
-    serviceDelete() {
-      axios.delete(`${apiURL}/services/${this.id}`).then(() => {
-        alert('Service has been deleted.')
-        this.$router.push({ name: 'servicesEdit' })
-      })
     }
   },
   // sets validations for the various data properties
@@ -148,15 +142,6 @@ export default {
               class="bg-green-700 text-white rounded"
             >
               Update Service
-            </button>
-          </div>
-          <div class="flex justify-between mt-10 mr-20">
-            <button
-              @click="serviceDelete"
-              type="submit"
-              class="bg-red-700 text-white rounded"
-            >
-              Delete Service
             </button>
           </div>
           <div class="flex justify-between mt-10 mr-20">

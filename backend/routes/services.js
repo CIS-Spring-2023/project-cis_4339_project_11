@@ -31,7 +31,7 @@ router.post('/', (req, res, next) => {
 })
 
 // PUT update service
-router.put('/update/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   services.findByIdAndUpdate(req.params.id, req.body, (error, data) => {
     if (error) {
       return next(error)
