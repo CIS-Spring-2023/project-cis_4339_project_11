@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios'
-const apiURL = import.meta.env.VITE_ROOT_API
+
 import { useLoggedInUserStore } from '@/store/loggedInUser'
 export default {
   name: 'App',
@@ -14,9 +14,19 @@ export default {
     return { user }
   },
   created() {
-    axios.get(`${apiURL}/org`).then((res) => {
-      this.orgName = res.data.name
+  const rootApi = import.meta.env.VITE_ROOT_API || 'http://localhost:3000'
+
+  axios.get(`${rootApi}/org`)
+    .then((res) => {
+      // If the API call was successful, log the response data to the console and update the component state with the organization name.
+      console.log(res);
+      this.orgName = res.data.name;
     })
+    .catch((error) => {
+      // If there was an error with the API call, log the error and show a user-friendly message to the user.
+      console.error(error);
+      this.errorMessage = 'There was an error loading the organization data. Please try again later.';
+    });
   }
 }
 </script>
