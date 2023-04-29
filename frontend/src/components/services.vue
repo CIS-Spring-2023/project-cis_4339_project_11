@@ -5,21 +5,18 @@ const apiURL = import.meta.env.VITE_ROOT_API
 export default {
   data() {
     return {
-      services: [
-        {
-          id: 0,
-          name: 'Default',
-          status: 'Active',
-          description: 'If you see this, the API connection was unsuccesful'
-        }
-      ]
+      services: {
+        name: 'Default',
+        status: 'Active',
+        description: 'If you see this, the API connection was unsuccesful'
+      }
     }
   },
   mounted() {
     this.getServices()
   },
   methods: {
-    // abstracted method to get events
+    // abstracted method to get services
     getServices() {
       axios.get(`${apiURL}/services`).then((res) => {
         this.services = res.data
@@ -67,9 +64,13 @@ export default {
           </thead>
           <tbody class="divide-y divide-gray-300">
             <tr v-for="service in services" :key="service._id">
-              <td class="p-2 text-left">{{ service.name }}</td>
-              <td class="p-2 text-left">{{ service.status }}</td>
-              <td class="p-2 text-left">{{ service.description }}</td>
+              <td v-if="service.status" class="p-2 text-left">
+                {{ service.name }}
+              </td>
+              <td v-if="service.status" class="p-2 text-left">Active</td>
+              <td v-if="service.status" class="p-2 text-left">
+                {{ service.description }}
+              </td>
             </tr>
           </tbody>
         </table>

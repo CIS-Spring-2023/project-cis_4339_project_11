@@ -17,6 +17,17 @@ router.get('/', (req, res, next) => {
   })
 })
 
+// GET services for org with id
+router.get('/:id', (req, res, next) => {
+  services.findById(req.params.id, req.body, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      return res.json(data)
+    }
+  })
+})
+
 // POST new service
 router.post('/', (req, res, next) => {
   const newService = req.body

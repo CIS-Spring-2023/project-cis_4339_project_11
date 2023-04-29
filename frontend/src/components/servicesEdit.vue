@@ -77,7 +77,8 @@ export default {
               :key="service._id"
             >
               <td class="p-2 text-left">{{ service.name }}</td>
-              <td class="p-2 text-left">{{ service.status }}</td>
+              <td v-if="service.status" class="p-2 text-left">Active</td>
+              <td v-else class="p-2 text-left">Disabled</td>
               <td class="p-2 text-left">{{ service.description }}</td>
             </tr>
           </tbody>
